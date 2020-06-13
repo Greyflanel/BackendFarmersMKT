@@ -10,19 +10,15 @@ server.use(express.json());
 server.use(cors());
 server.use(helmet());
 
+// Router
+const usersRouter = require("./users-router");
+
+server.use("/", usersRouter)
 
 server.get("/", (req, res) => {
     res.send("Welcome to Farmer's Market ToGo")
 });
-server.get("/", (req, res) => {
-  db("users")
-    .then((users) => {
-      res.json(users);
-    })
-    .catch((err) => {
-      res.status(500).json({ message: "Failed to get users" });
-    });
-});
+
 
 
 module.exports = server;
