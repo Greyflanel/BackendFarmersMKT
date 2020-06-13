@@ -9,8 +9,6 @@ exports.up = function(knex) {
         tbl.string("password", 128)
     // creates timestamp when user is created
         tbl.timestamp("created_at").defaultTo(knex.fn.now());
-    // creates an is_admin field which accepts a boolean
-        tbl.boolean("is_admin");
   })
 };
 

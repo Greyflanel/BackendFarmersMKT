@@ -13,11 +13,9 @@ server.use(helmet());
 // Router
 const usersRouter = require("./users-router");
 
+
 server.use("/", usersRouter)
 
-server.get("/", (req, res) => {
-    res.send("Welcome to Farmer's Market ToGo")
-});
 
 
 
