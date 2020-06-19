@@ -13,11 +13,12 @@ server.use(cors());
 server.use(logger('short'));
 
 
-// Router
+// Routers
+const authRouter = require('./auth/auth-router');
 const usersRouter = require("./users/users-router");
 
-
-server.use("/", usersRouter)
+server.use("/api/auth", authRouter);
+server.use("/", usersRouter);
 
 
 
