@@ -17,7 +17,7 @@ server.use(logger('short'));
 const authRouter = require('./auth/auth-router');
 const usersRouter = require("./users/users-router");
 
-server.use("/api/auth", authRouter);
+server.use("/", authRouter);
 server.use("/", usersRouter);
 
 
