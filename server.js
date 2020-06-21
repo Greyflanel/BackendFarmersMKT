@@ -2,6 +2,7 @@ const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
 const logger = require('morgan');
+const authenticate = require('./auth/authenticate-middleware');
 
 // Server instance
 const server = express();
