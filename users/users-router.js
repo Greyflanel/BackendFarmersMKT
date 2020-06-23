@@ -12,17 +12,18 @@ router.get("/admin", (req, res) => {
       res.json(users)
     })
     .catch(error => {
-      res.status(500)({ message: "Failed to get users", error: error });
+      res.status(500)({ message: "Failed to get users" });
     });
 });
 
 router.get("/admin/:id", (req, res) => {
-  Users.find()
+  const id = req.params.id;
+  Users.findById(id)
     .then(user => {
-      return res.json(`User is: ${req.params.id}`)
+      return res.json(user)
     })
     .catch(error => {
-      res.status(500).json({ message: "Failed to get users!" })
+      res.status(500).json({ message: "Failed to get user!"})
     });
 });
 

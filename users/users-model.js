@@ -8,7 +8,6 @@ const findBy = (filter) => {
   return db('users').where(filter);
 }
 
-const isAdmin = () => db('users').where(role = "admin");
 
 
 async function add(user) {
@@ -18,7 +17,7 @@ async function add(user) {
 }
 
 function findById(id) {
-  return db("users").where({ id }).first();
+  return db("users").where({ id });
 }
 
 const remove = (filter) => {
@@ -32,6 +31,5 @@ module.exports = {
   find,
   findBy,
   findById,
-  remove,
-  isAdmin
+  remove
 };
