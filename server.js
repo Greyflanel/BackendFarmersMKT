@@ -2,7 +2,7 @@ const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
 const logger = require('morgan');
-const authenticate = require('./auth/authenticate-middleware');
+const restricted = require('./auth/restricted-middleware.js');
 
 // Server instance
 const server = express();
@@ -19,7 +19,7 @@ const authRouter = require('./auth/auth-router');
 const usersRouter = require("./users/users-router");
 
 server.use("/", authRouter);
-server.use("/", usersRouter);
+server.use("/", restricted, usersRouter);
 
 
 

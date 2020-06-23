@@ -12,7 +12,7 @@ router.post('/register', (req, res) => {
 
     Users.add(user)
         .then(saved => {
-            res.status(201).json(saved);
+            res.status(201).json({ message: "Successfully registered" });
         })
         .catch(error => {
             res.status(500).json(error);
@@ -39,11 +39,13 @@ router.post('/login', (req, res) => {
 
 const signToken = (user) => {
     const payload = {
+        subject: user.id,
         username: user.username,
+        role: user.role
     };
     const secret = process.env.JWT_SECRET || 'Greyflanel';
     const options = {
-        expiresIn: '1d',
+        expiresIn: '4h',
     };
     
     return jwt.sign(payload, secret, options);

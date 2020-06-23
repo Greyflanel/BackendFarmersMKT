@@ -4,9 +4,12 @@ const find = () => {
   return db('users');
 }
 
-const findByAdmin = (role) => {
-  return db('users').where({role: 'admin'});
+const findBy = (filter) => {
+  return db('users').where(filter);
 }
+
+const isAdmin = () => db('users').where(role = "admin");
+
 
 async function add(user) {
   const [id] = await db("users").insert(user);
@@ -27,7 +30,8 @@ const remove = (filter) => {
 module.exports = {
   add,
   find,
-  findByAdmin,
+  findBy,
   findById,
   remove,
+  isAdmin
 };
