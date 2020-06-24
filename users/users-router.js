@@ -1,12 +1,11 @@
 const router = require("express").Router();
-const restricted = require('../auth/restricted-middleware');
 const Users = require("./users-model.js");
 
 
 
   
 router.get("/admin", (req, res) => {
-  
+  console.log(req.headers)
   Users.find()
     .then(users => {
       res.json(users)
@@ -26,5 +25,7 @@ router.get("/admin/:id", (req, res) => {
       res.status(500).json({ message: "Failed to get user!"})
     });
 });
+
+
 
 module.exports = router;
