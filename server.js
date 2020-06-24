@@ -15,11 +15,15 @@ server.use(logger('short'));
 
 
 // Routers
+const productRouter = require("./products/products-router");
 const authRouter = require('./auth/auth-router');
 const usersRouter = require("./users/users-router");
 
+
+server.use("/", productRouter);
 server.use("/", authRouter);
-server.use("/", restricted, usersRouter);
+server.use("/", usersRouter);
+
 
 
 

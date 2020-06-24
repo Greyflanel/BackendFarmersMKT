@@ -11,7 +11,7 @@ router.get("/admin", (req, res) => {
       res.json(users)
     })
     .catch(error => {
-      res.status(500)({ message: "Failed to get users" });
+      res.status(500).json({ message: "Failed to get users" });
     });
 });
 
