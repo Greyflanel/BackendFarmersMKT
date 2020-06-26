@@ -32,11 +32,36 @@ router.get("/products/:id", (req, res) => {
             return res.json(product)
         })
         .catch(error => {
-            res.status(500).json(error, { message: "Failed to get product!" })
+            res.status(500).json({ message: "Failed to get product!" })
         });
 });
 
+router.delete("/products/:id", (req, res) => {
+  const id = req.params.id;
 
+  Products.remove(id)
+    .then((product) => {
+      return res
+        .status(410)
+        .json({ message: `Product id: ${id} has been deleted!` });
+    })
+    .catch((error) => {
+      res.status(500).json({ message: "Failed to delete product!" });
+    });
+});
 
+router.put("/products/:id", (req, res) => {
+  const id = req.params.id;
+
+  Products.updateProduct(id, req.body)
+    .then(product => {
+      return res
+        .status(200)
+        .json({ message: `Product id: ${id} has been updated!` });
+    })
+    .catch((error) => {
+      res.status(500).json({ message: "Failed to update product!" });
+    });
+});
 
 module.exports = router;

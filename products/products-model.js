@@ -1,7 +1,7 @@
 const db = require("../data/db-config");
 
 const find = () => {
-    return db('products');
+    return db('products').select("id", "product", "price", "product_details", "product_image_url", "remaining_product");
 }
 
 const findBy = (filter) => {
@@ -16,8 +16,12 @@ const findById = (id) => {
     return db("products").where({ id });
 }
 
-const remove = (filter) => {
-    return db("products").where(filter).del();
+const updateProduct = (id, update) => {
+    return db('products').where({ id }).update(update)
+}
+
+const remove = (id) => {
+    return db("products").where({ id }).del();
 }
 
 module.exports = {
@@ -25,5 +29,6 @@ module.exports = {
     find,
     findBy,
     findById,
+    updateProduct,
     remove
 };
