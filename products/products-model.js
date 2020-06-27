@@ -21,7 +21,9 @@ const updateProduct = (id, update) => {
 }
 
 const remove = (id) => {
-    return db("products").where({ id }).del();
+    return db("products")
+        .where({ id })
+        .del();
 }
 
 module.exports = {

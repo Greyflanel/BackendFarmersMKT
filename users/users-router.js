@@ -5,13 +5,12 @@ const Users = require("./users-model.js");
 
   
 router.get("/admin", (req, res) => {
-  console.log(req.headers)
   Users.find()
     .then(users => {
-      res.json(users)
+      return res.json(users)
     })
     .catch(error => {
-      res.status(500).json({ message: "Failed to get users" });
+      return res.status(500).json({ message: "Failed to get users" });
     });
 });
 
@@ -22,10 +21,32 @@ router.get("/admin/:id", (req, res) => {
       return res.json(user)
     })
     .catch(error => {
-      res.status(500).json({ message: "Failed to get user!"})
+      return res.status(500).json({ message: "Failed to get user!"})
     });
 });
 
+router.delete("/admin/:id", (req, res) => {
+  const id = req.params.id;
 
+  Users.remove(id)
+    .then(user => {
+      return res.status(410).json({ message: `User id: ${id} has been deleted!` })
+        .catch(error => {
+        return res.status(500).json({ message: "Failed to delete User!", error: error })
+      })
+    });
+});
+
+router.put("/admin/:id", (req, res) => {
+  const id = req.params.id;
+
+  Users.updateUser(id, req.body)
+    .then(user => {
+      return res.status(200).json({ message: `User id: ${id} has been updated!` })
+    })
+    .catch(error => {
+      res.status(500).json({ message: "Failed to update User!" })
+    });
+});
 
 module.exports = router;

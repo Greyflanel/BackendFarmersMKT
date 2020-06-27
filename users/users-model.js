@@ -17,9 +17,13 @@ const findById = (id) => {
   return db("users").where({ id });
 }
 
-const remove = (filter) => {
+const updateUser = (id, update) => {
+  return db("users").where({ id }).update(update);
+};
+
+const remove = (id) => {
     return db("users")
-        .where(filter)
+        .where({ id })
         .del();
 }
 
@@ -28,5 +32,6 @@ module.exports = {
   find,
   findBy,
   findById,
+  updateUser,
   remove
 };

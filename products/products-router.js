@@ -46,7 +46,7 @@ router.delete("/products/:id", (req, res) => {
         .json({ message: `Product id: ${id} has been deleted!` });
     })
     .catch((error) => {
-      res.status(500).json({ message: "Failed to delete product!" });
+      return res.status(500).json({ message: "Failed to delete product!", error: error });
     });
 });
 
@@ -60,7 +60,7 @@ router.put("/products/:id", (req, res) => {
         .json({ message: `Product id: ${id} has been updated!` });
     })
     .catch((error) => {
-      res.status(500).json({ message: "Failed to update product!" });
+      return res.status(500).json({ message: "Failed to update product!" });
     });
 });
 
