@@ -1,7 +1,17 @@
 const router = require("express").Router();
 const Users = require("./users-model.js");
 
+router.post("/login", (req, res) => {
+  let user = req.body;
 
+  Users.add(user)
+    .then((user) => {
+      res.status(201).json({ message: "Successfully logged in!" });
+    })
+    .catch((error) => {
+      res.status(500).json(error);
+    });
+});
 
   
 router.get("/admin", (req, res) => {
