@@ -20,9 +20,9 @@ const authRouter = require('./auth/auth-router');
 const usersRouter = require("./users/users-router");
 
 // Router Middleware
-server.use("/", productRouter);
-server.use("/", restricted, authRouter);
-server.use("/", usersRouter);
+server.use("/api", productRouter);
+server.use("/api", authRouter);
+server.use("/api", usersRouter);
 
 
 
