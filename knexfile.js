@@ -29,7 +29,7 @@ module.exports = {
     },
   },
 
-  production: {
+  production: { 
     client: "postgresql",
     connection: {
       database: "my_db",
