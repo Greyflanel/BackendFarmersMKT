@@ -22,7 +22,7 @@ const usersRouter = require("./users/users-router");
 // Router Middleware
 server.use("/api", productRouter);
 server.use("/api", authRouter);
-server.use("/api", usersRouter);
+server.use("/api",  usersRouter);
 
 
 
