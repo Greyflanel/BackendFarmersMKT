@@ -3,10 +3,10 @@ const bcrypt = require('bcryptjs');
 const Users = require('../users/users-model');
 
 module.exports = (req, res, next) => {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
 
-    if (username && password) {
-        Users.findBy({ username })
+    if (email && password) {
+        Users.findBy({ email })
             .first()
             .then(user => {
                 console.log(user)

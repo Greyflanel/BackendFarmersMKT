@@ -21,14 +21,14 @@ router.post('/register', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
-    let { username, password } = req.body;
+    let { email, password } = req.body;
 
-    Users.findBy({ username })
+    Users.findBy({ email })
         .first()
         .then(user => {
             if (user && bcrypt.compareSync(password, user.password)) {
                 const token = signToken(user)
-                res.status(200).json({ token, message: `Welcome ${user.username}!`, });
+                res.status(200).json({ role: user.role, token, message: `Welcome ${user.email}!`, });
             } else {
                 res.status(401).json({ message: "Invalid Credentials", error: {error} });
             }
@@ -41,7 +41,7 @@ router.post('/login', (req, res) => {
 const signToken = (user) => {
     const payload = {
         subject: user.id,
-        username: user.username,
+        email: user.email,
         role: user.role
     };
     const secret = process.env.JWT_SECRET || 'Greyflanel';
