@@ -3,7 +3,6 @@ const helmet = require('helmet');
 const cors = require('cors');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
-const restricted = require('./auth/restricted-middleware.js');
 
 // Server instance
 const server = express();
@@ -24,6 +23,8 @@ const usersRouter = require("./users/users-router");
 server.use("/api", productRouter);
 server.use("/api", authRouter);
 server.use("/api", usersRouter);
+
+
 // server.use("/api", (req, res) => {
 //   const dataToSecure = {
 //     dataToSecure: "This is the secret data in the cookie.",

@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const Users = require("./users-model.js");
+const verifyAuth = require("../auth/verify-auth");
 
 router.post("/login", (req, res) => {
   let user = req.body;
@@ -14,7 +15,7 @@ router.post("/login", (req, res) => {
 });
 
   
-router.get("/admin", (req, res) => {
+router.get("/admin", verifyAuth, (req, res) => {
   
   
   Users.find()

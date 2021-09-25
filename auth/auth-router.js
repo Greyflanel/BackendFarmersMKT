@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-
+const verifyAuth = require('./verify-auth')
 const Users = require('../users/users-model');
 
 
@@ -58,9 +58,10 @@ const signToken = (user) => {
 
 router.get("/", (req, res) => {
   const token = signToken(req.body);
-  console.log(req.body)
-  res.cookie("token", token, { httpOnly: true });
+  
+  res.cookie("token", token, { httpOnly: true, secure: true, sameSite: true });
   res.json({ token });
+
 });
 
 module.exports = router;
