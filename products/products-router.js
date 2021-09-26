@@ -1,7 +1,8 @@
 const router = require("express").Router();
 const Products = require("./products-model");
+const verifyAuth = require("../auth/verify-auth");
 
-router.post("/products", (req, res) => {
+router.post("/products", verifyAuth, (req, res) => {
   let product = req.body;
 
   Products.add(product)
@@ -35,7 +36,7 @@ router.get("/products/:id", (req, res) => {
     });
 });
 
-router.delete("/products/:id", (req, res) => {
+router.delete("/products/:id", verifyAuth, (req, res) => {
   const id = req.params.id;
 
   Products.remove(id)
@@ -51,7 +52,7 @@ router.delete("/products/:id", (req, res) => {
     });
 });
 
-router.put("/products/:id", (req, res) => {
+router.put("/products/:id", verifyAuth, (req, res) => {
   const id = req.params.id;
 
   Products.updateProduct(id, req.body)

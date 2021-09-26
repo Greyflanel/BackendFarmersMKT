@@ -2,21 +2,8 @@ const router = require("express").Router();
 const Users = require("./users-model.js");
 const verifyAuth = require("../auth/verify-auth");
 
-router.post("/login", (req, res) => {
-  let user = req.body;
-  
-  Users.add(user)
-    .then((user) => {
-      res.status(201).json({ message: "Successfully logged in!" });
-    })
-    .catch((error) => {
-      res.status(500).json(error);
-    });
-});
-
   
 router.get("/admin", verifyAuth, (req, res) => {
-  
   
   Users.find()
     .then(users => {
@@ -27,7 +14,7 @@ router.get("/admin", verifyAuth, (req, res) => {
     });
 });
 
-router.get("/admin/:id", (req, res) => {
+router.get("/admin/:id", verifyAuth, (req, res) => {
   const id = req.params.id;
   Users.findById(id)
     .then(user => {
@@ -38,7 +25,7 @@ router.get("/admin/:id", (req, res) => {
     });
 });
 
-router.delete("/admin/:id", (req, res) => {
+router.delete("/admin/:id", verifyAuth, (req, res) => {
   const id = req.params.id;
 
   Users.remove(id)
@@ -50,7 +37,7 @@ router.delete("/admin/:id", (req, res) => {
     });
 });
 
-router.put("/admin/:id", (req, res) => {
+router.put("/admin/:id", verifyAuth, (req, res) => {
   const id = req.params.id;
 
   Users.updateUser(id, req.body)
