@@ -1,7 +1,6 @@
 const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const verifyAuth = require('./verify-auth')
 const Users = require('../users/users-model');
 
 
@@ -31,7 +30,6 @@ router.post('/login', (req, res) => {
             if (user && bcrypt.compareSync(password, user.password)) {
                 const token = signToken(user)
                 res.status(200).json({ email: user.email, role: user.role, token, message: `Welcome ${user.email}!`, });
-                
             } else {
                 res.status(401).json({ message: "Invalid Credentials", error: {error} });
             }
@@ -47,7 +45,7 @@ const signToken = (user) => {
         email: user.email,
         role: user.role
     };
-    const secret = process.env.JWT_SECRET || 'Greyflanel';
+    const secret = process.env.JWT_SECRET;
     const options = {
         expiresIn: '4h',
         
@@ -57,11 +55,16 @@ const signToken = (user) => {
 }
 
 router.get("/", (req, res) => {
-  const token = signToken(req.body);
-  
-  res.cookie("token", token, { httpOnly: true, secure: true, sameSite: true });
-  res.json({ token });
+    res.status(500).send("IS NOT WORKING!")
+})
 
-});
+
+
+// router.get("/", (req, res) => {
+//   const token = signToken(req.body);
+//   res.cookie("token", token, { httpOnly: true, secure: true, sameSite: true });
+//   console.log("REQ:", req.cookies)
+//   res.json({ token });
+// });
 
 module.exports = router;

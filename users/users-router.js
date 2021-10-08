@@ -3,8 +3,8 @@ const Users = require("./users-model.js");
 const verifyAuth = require("../auth/verify-auth");
 
   
-router.get("/admin", verifyAuth, (req, res) => {
-  
+router.get("/admin", (req, res) => {
+  console.log("ADMIN:")
   Users.find()
     .then(users => {
       return res.json(users)
@@ -14,7 +14,7 @@ router.get("/admin", verifyAuth, (req, res) => {
     });
 });
 
-router.get("/admin/:id", verifyAuth, (req, res) => {
+router.get("/admin/:id", (req, res) => {
   const id = req.params.id;
   Users.findById(id)
     .then(user => {
@@ -25,19 +25,18 @@ router.get("/admin/:id", verifyAuth, (req, res) => {
     });
 });
 
-router.delete("/admin/:id", verifyAuth, (req, res) => {
+router.delete("/admin/:id", (req, res) => {
   const id = req.params.id;
 
   Users.remove(id)
     .then(user => {
       return res.status(410).json({ message: `User id: ${id} has been deleted!` })
-        .catch(error => {
+      }).catch(error => {
         return res.status(500).json({ message: "Failed to delete User!", error: error })
-      })
     });
 });
 
-router.put("/admin/:id", verifyAuth, (req, res) => {
+router.put("/admin/:id", (req, res) => {
   const id = req.params.id;
 
   Users.updateUser(id, req.body)

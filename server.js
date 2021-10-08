@@ -20,27 +20,16 @@ const authRouter = require('./auth/auth-router');
 const usersRouter = require("./users/users-router");
 
 // Router Middleware
-server.use("/api", productRouter);
-server.use("/api", authRouter);
-server.use("/api", usersRouter);
+server.use("/", productRouter);
+server.use("/", authRouter);
+server.use("/", usersRouter);
 
+require("dotenv").config();
 
-// server.use("/api", (req, res) => {
-//   const dataToSecure = {
-//     dataToSecure: "This is the secret data in the cookie.",
-//     name: "COOKIE"
-//   };
+const PORT = process.env.PORT || 5432;
 
-//   res.cookie("secureCookie", JSON.stringify(dataToSecure, {expire: 360000 + Date.now()}), {
-//     secure: true,
-//     httpOnly: true,
-//     sameSite: 'strict'
-//   });
-
-//   res.send("Hello.");
-// }); 
-
-
-
+server.listen(PORT, () => {
+  console.log(`Listening on port ${PORT}`);
+});
 
 module.exports = server;
