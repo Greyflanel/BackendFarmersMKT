@@ -4,7 +4,7 @@ const verifyAuth = require("../auth/verify-auth");
 
 router.post("/login", (req, res) => {
   let user = req.body;
-  
+
   Users.add(user)
     .then((user) => {
       res.status(201).json({ message: "Successfully logged in!" });

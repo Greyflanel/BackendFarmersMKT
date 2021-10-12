@@ -12,7 +12,7 @@ server.use(express.json());
 server.use(helmet());
 server.use(cors());
 server.use(logger('short'));
-server.use(cookieParser());
+
 
 // Routers
 const productRouter = require("./products/products-router");
