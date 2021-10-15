@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const Products = require("./products-model");
+const verifyAuth = require("../auth/verify-auth");
 
 router.post("/products", (req, res) => {
   let product = req.body;

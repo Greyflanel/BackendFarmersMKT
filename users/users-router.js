@@ -2,6 +2,7 @@ const router = require("express").Router();
 const Users = require("./users-model.js");
 const verifyAuth = require("../auth/verify-auth");
 
+<<<<<<< HEAD
 router.post("/login", (req, res) => {
   let user = req.body;
 
@@ -17,7 +18,11 @@ router.post("/login", (req, res) => {
   
 router.get("/admin", verifyAuth, (req, res) => {
   
+=======
+>>>>>>> b9128dd725868693c7e5e3db96a65d7a97cf6ca9
   
+router.get("/admin", (req, res) => {
+  console.log("ADMIN:")
   Users.find()
     .then(users => {
       return res.json(users)
@@ -44,9 +49,8 @@ router.delete("/admin/:id", (req, res) => {
   Users.remove(id)
     .then(user => {
       return res.status(410).json({ message: `User id: ${id} has been deleted!` })
-        .catch(error => {
+      }).catch(error => {
         return res.status(500).json({ message: "Failed to delete User!", error: error })
-      })
     });
 });
 
