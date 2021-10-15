@@ -36,7 +36,7 @@ router.get("/products/:id", (req, res) => {
     });
 });
 
-router.delete("/products/:id", verifyAuth, (req, res) => {
+router.delete("/products/:id", (req, res) => {
   const id = req.params.id;
 
   Products.remove(id)
@@ -52,7 +52,7 @@ router.delete("/products/:id", verifyAuth, (req, res) => {
     });
 });
 
-router.put("/products/:id", verifyAuth, (req, res) => {
+router.put("/products/:id", (req, res) => {
   const id = req.params.id;
 
   Products.updateProduct(id, req.body)
