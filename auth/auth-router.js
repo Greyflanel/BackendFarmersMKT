@@ -54,9 +54,9 @@ const signToken = (user) => {
     return jwt.sign(payload, secret, options);
 }
 
-router.get("/", (req, res) => {
-    res.status(500).send("IS NOT WORKING!")
-})
+// router.get("/", (req, res) => {
+//     res.status(500).send("IS NOT WORKING!")
+// })
 
 
 
