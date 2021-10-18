@@ -36,11 +36,11 @@ module.exports = {
       
     },
     pool: {
-      min: 1,
+      min: 2,
       max: 10,
     },
     migrations: {
-      directory: __dirname + "/data/migrations",
+      directory: __dirname + "./data/migrations",
     },
   },
 };
