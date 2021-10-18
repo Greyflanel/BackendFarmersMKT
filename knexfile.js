@@ -40,7 +40,7 @@ module.exports = {
       max: 10,
     },
     migrations: {
-      directory: __dirname + "./data/migrations",
+      directory: __dirname + "/data/migrations",
     },
   },
 };
