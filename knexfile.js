@@ -37,7 +37,7 @@ module.exports = {
       max: 10,
     },
     migrations: {
-      directory: "/data/migrations",
+      directory: "./data/migrations",
     },
     ssl: true
   },
