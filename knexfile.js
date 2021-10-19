@@ -31,18 +31,14 @@ module.exports = {
 
   production: {
     client: "pg",
-    connection: {
-      database: process.env.PG_DB,
-      user: process.env.PG_USER,
-      password: process.env.PG_PWD,
-      
-    },
+    connection: process.env.DATABASE_URL,
     pool: {
       min: 2,
       max: 10,
     },
     migrations: {
-      tableName: "knex_migrations",
+      directory: "./data/migrations",
     },
+    ssl: true
   },
 };
