@@ -11,7 +11,7 @@ require("dotenv").config();
 // Server instance
 const server = express();
 
-const PORT = process.env.API_PORT || 3001;
+const PORT = process.env.API_PORT || 4000;
 const appPort = process.env.SERVER_PORT || 3000;
 const appOrigin = authConfig.appOrigin || `http://localhost:${appPort}`;
 
