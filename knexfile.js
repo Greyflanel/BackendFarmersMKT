@@ -39,6 +39,6 @@ module.exports = {
     migrations: {
       directory: "./data/migrations",
     },
-    ssl: false
+    ssl: true
   },
 };
