@@ -29,7 +29,8 @@
     "jwks-rsa": "^2.0.5",
     "knex": "^0.95.6",
     "morgan": "^1.10.0",
-    "pg": "^8.6.0"
+    "pg": "^8.6.0",
+    "stripe": "^8.212.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.14"
