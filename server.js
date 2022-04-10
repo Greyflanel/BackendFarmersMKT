@@ -5,6 +5,7 @@ const logger = require('morgan');
 const { join } = require("path");
 const jwt = require("express-jwt");
 const jwksRsa = require("jwks-rsa");
+const stripe = require("stripe")(process.env.STRIPE_SECRET_TEST);
 const authConfig = require("./auth_config.json");
 require("dotenv").config();
 
@@ -38,6 +39,7 @@ server.use(cors({ origin: '*' }));
 
 
 const productRouter = require("./products/products-router");
+const { stripVTControlCharacters } = require('util');
 
 server.use("/", productRouter);
 
@@ -60,6 +62,29 @@ server.get("/msg", checkJwt, (req, res) => {
   });
 });
 
+server.post("/payment", cors(), (req, res) => {
+  let { amount, id } = req.body
+  try {
+    const payment = await stripe.paymentIntents.create({
+      amount,
+      currency: "USD",
+      description: "Computer Parts and Electronics",
+      payment_method: id,
+      confirm: true
+    })
+    console.log("Payment", payment)
+    res.json({ 
+      message: "Payment Successful!"
+     })
+  } catch (error) {
+    console.log("Error", error)
+    res.json({
+      message: "Payment Failed",
+      succes: false
+    })
+
+  }
+})
 
 server.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
