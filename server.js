@@ -62,7 +62,7 @@ server.get("/msg", checkJwt, (req, res) => {
   });
 });
 
-server.post("/payment", cors(), (req, res) => {
+server.post("/payment", cors(), async (req, res) => {
   let { amount, id } = req.body
   try {
     const payment = await stripe.paymentIntents.create({
