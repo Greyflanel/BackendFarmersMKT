@@ -33,7 +33,7 @@ server.use(helmet());
 server.use(cors());
 server.use(logger('short'));
 server.use(express.static(join(__dirname, "build")));
-server.use(cors({ origin: 'http://localhost:3000 ' }));
+server.use(cors({ origin: '*' }));
 
 
 
