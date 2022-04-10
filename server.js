@@ -13,8 +13,8 @@ const server = express();
 
 const PORT = process.env.API_PORT || 4000;
 const appPort = process.env.SERVER_PORT || 3000;
-//const appOrigin = authConfig.appOrigin || `http://localhost:${appPort}`;
-const appOrigin = authConfig.appOrigin || 'https://computerspartselectronics.com';
+const appOrigin = authConfig.appOrigin || `http://localhost:${appPort}`;
+// const appOrigin = authConfig.appOrigin || 'https://computerspartselectronics.com';
 if (
   !authConfig.domain ||
   !authConfig.audience ||
@@ -33,7 +33,7 @@ server.use(helmet());
 server.use(cors());
 server.use(logger('short'));
 server.use(express.static(join(__dirname, "build")));
-server.use(cors({ origin: 'http://localhost:3000' }));
+server.use(cors({ origin: 'http://localhost:3000 ' }));
 
 
 
