@@ -6,7 +6,7 @@ const { join } = require("path");
 const jwt = require("express-jwt");
 const jwksRsa = require("jwks-rsa");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_TEST);
-const uuid = require("uuid/v4");
+const { v4: uuidv4 } = require("uuid");
 const authConfig = require("./auth_config.json");
 require("dotenv").config();
 
