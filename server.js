@@ -62,7 +62,8 @@ server.get("/external-api", checkJwt, (req, res) => {
 
 server.post("/payment", checkJwt, cors(), async (req, res) => {
   let { product, amount, id, token } = req.body;
-  let idempontencyKey = uuid();
+  let idempontencyKey = uuidv4();
+  console.log(uuidv4)
   console.log("PRODUCT", product)
   console.log("PRICE", product.price)
   try {
