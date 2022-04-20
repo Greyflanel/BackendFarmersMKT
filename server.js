@@ -5,7 +5,7 @@ const logger = require('morgan');
 const { join } = require("path");
 const jwt = require("express-jwt");
 const jwksRsa = require("jwks-rsa");
-const stripe = require("stripe")(process.env.STRIPE_SECRET_TEST);
+const stripe = require("stripe")('sk_test_LWw3jny5c46xHynXBzLoM3xl00M9eSkVfa');
 const { v4: uuidv4 } = require("uuid");
 const authConfig = require("./auth_config.json");
 require("dotenv").config();
@@ -16,7 +16,7 @@ const server = express();
 const PORT = process.env.API_PORT || 4000;
 const appPort = process.env.SERVER_PORT || 3000;
 // const appOrigin = authConfig.appOrigin || `http://localhost:${appPort}`;
-const appOrigin = authConfig.appOrigin || 'https://computerspartselectronics.com';
+const appOrigin = authConfig.appOrigin || 'http://localhost:3000';
 if (
   !authConfig.domain ||
   !authConfig.audience ||
@@ -54,49 +54,39 @@ const checkJwt = jwt({
   algorithms: ["RS256"],
 });
 
-server.get("/external-api", checkJwt, (req, res) => {
+const calculateOrderAmount = (items) => {
+  // Replace this constant with a calculation of the order's amount
+  // Calculate the order total on the server to prevent
+  // people from directly manipulating the amount on the client
+  return 1400;
+};
+
+server.post("/create-payment-intent", async (req, res) => {
+  const { items } = req.body;
+
+  // Create a PaymentIntent with the order amount and currency
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount: calculateOrderAmount(items),
+    currency: "usd",
+    automatic_payment_methods: {
+      enabled: true,
+    },
+  });
+
   res.send({
-    msg: "Your access token was successfully validated!",
+    clientSecret: paymentIntent.client_secret,
   });
 });
 
-server.post("/payment", checkJwt, cors(), async (req, res) => {
-  let { product, amount, id, token } = req.body;
-  let idempontencyKey = uuidv4();
-  console.log(uuidv4);
-  console.log("PRODUCT", product);
-  console.log("PRICE", product.price);
-  try {
-    const payment = await stripe.paymentIntents.create({
-      amount: product.price * 100,
-      currency: "USD",
-      description: "Computer Parts and Electronics",
-      payment_method: id,
-      confirm: true,
-      email: token.email,
-      receipt_email: token.email,
-      description: product.product_details,
-      shipping: {
-        name: token.card.name,
-        address: {
-          country: token.card.address_country
-        }
-      }
-    }, {idempontencyKey})
-    console.log("Payment", payment)
-    res.json({ 
-      message: "Payment Successful!"
-     })
-  } catch (error) {
-    console.log("Error", error)
-    res.json({
-      message: "Payment Failed",
-      success: false
-    })
 
-  }
-  
-})
+// server.get("/external-api", checkJwt, (req, res) => {
+//   console.log(req.body)
+//   res.send({
+//     msg: "Your access token was successfully validated!",
+//   });
+// });
+
+
 
 server.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
